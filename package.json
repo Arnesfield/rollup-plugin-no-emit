@@ -1,0 +1,40 @@
+{
+  "name": "rollup-plugin-no-emit",
+  "version": "0.0.1-alpha.1",
+  "description": "Skip emit for generated bundles.",
+  "keywords": [
+    "rollup-plugin",
+    "no-emit"
+  ],
+  "homepage": "https://github.com/Arnesfield/rollup-plugin-no-emit#readme",
+  "bugs": {
+    "url": "https://github.com/Arnesfield/rollup-plugin-no-emit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arnesfield/rollup-plugin-no-emit.git"
+  },
+  "license": "MIT",
+  "author": "Jefferson Rylee <rylee.jeff385@gmail.com>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    "import": "./lib/index.mjs",
+    "require": "./lib/index.cjs",
+    "default": "./lib/index.mjs"
+  },
+  "main": "lib/index.cjs",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prebuild": "rimraf lib",
+    "build": "rollup -c",
+    "lint": "eslint . --ext .js,.ts",
+    "lint:fix": "npm run lint -- --fix",
+    "start": "npm run build -- -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
