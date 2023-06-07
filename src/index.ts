@@ -1,4 +1,4 @@
-import { Plugin } from 'rollup';
+import { OutputBundle, Plugin } from 'rollup';
 
 /**
  * Rollup no emit plugin options.
@@ -6,14 +6,16 @@ import { Plugin } from 'rollup';
 export interface RollupNoEmitOptions {
   /**
    * Set to `true` to invalidate plugin and emit files.
+   * @default false
    */
   emit?: boolean;
   /**
-   * Match output file name to skip emit.
+   * Return `true` to skip emit for output file.
    * @param fileName The output bundle file name to match.
-   * @returns Determines if the file name will be skipped or not.
+   * @param output The Rollup output chunk or asset.
+   * @returns Determines if the output file will be skipped or not.
    */
-  match?(fileName: string): boolean;
+  match?(fileName: string, output: OutputBundle[keyof OutputBundle]): boolean;
 }
 
 /**
@@ -21,19 +23,22 @@ export interface RollupNoEmitOptions {
  * @param options The plugin options.
  * @returns The plugin.
  */
-export default function noEmit(options: RollupNoEmitOptions = {}): Plugin {
+export function noEmit(options: RollupNoEmitOptions = {}): Plugin {
+  const { emit, match } = options;
+  const skipMatch = typeof match !== 'function';
   return {
     name: 'no-emit',
     generateBundle(_, bundle) {
-      if (options.emit) {
+      if (emit) {
         return;
       }
-      const { match } = options;
       for (const file in bundle) {
-        if (typeof match !== 'function' || match(file)) {
+        if (skipMatch || match(file, bundle[file])) {
           delete bundle[file];
         }
       }
     }
   };
 }
+
+export default noEmit;
