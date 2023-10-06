@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-no-emit",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Skip emit for generated bundles.",
   "keywords": [
     "rollup-plugin",
