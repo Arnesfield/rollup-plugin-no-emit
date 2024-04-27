@@ -17,7 +17,7 @@ export interface Options {
 export type RollupNoEmitOptions = Options;
 
 /**
- * Skip emit for generated bundles.
+ * A Rollup plugin that skips emit for generated bundles.
  * @param options The plugin options.
  * @returns The plugin.
  */

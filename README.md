@@ -1,7 +1,12 @@
+[npm-img]: https://img.shields.io/npm/v/rollup-plugin-no-emit.svg
+[npm-url]: https://www.npmjs.com/package/rollup-plugin-no-emit
+[ci-img]: https://github.com/Arnesfield/rollup-plugin-no-emit/workflows/Node.js%20CI/badge.svg
+[ci-url]: https://github.com/Arnesfield/rollup-plugin-no-emit/actions?query=workflow%3A"Node.js+CI"
+
 # rollup-plugin-no-emit
 
-[![npm](https://img.shields.io/npm/v/rollup-plugin-no-emit.svg)](https://www.npmjs.com/package/rollup-plugin-no-emit)
-[![Node.js CI](https://github.com/Arnesfield/rollup-plugin-no-emit/workflows/Node.js%20CI/badge.svg)](https://github.com/Arnesfield/rollup-plugin-no-emit/actions?query=workflow%3A"Node.js+CI")
+[![npm][npm-img]][npm-url]
+[![Node.js CI][ci-img]][ci-url]
 
 A Rollup plugin that skips emit for generated bundles.
 

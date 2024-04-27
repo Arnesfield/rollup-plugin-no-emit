@@ -1,7 +1,7 @@
 {
   "name": "rollup-plugin-no-emit",
   "version": "1.1.1",
-  "description": "Skip emit for generated bundles.",
+  "description": "A Rollup plugin that skips emit for generated bundles.",
   "keywords": [
     "rollup-plugin",
     "no-emit"
