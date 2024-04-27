@@ -2,7 +2,11 @@ import { expect } from 'chai';
 import path from 'path';
 import { rimraf } from 'rimraf';
 import { RollupOptions, rollup } from 'rollup';
-import noEmit from '../src';
+import { fileURLToPath } from 'url';
+import noEmit from '../src/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function file(value: string) {
   return path.relative(process.cwd(), path.resolve(__dirname, value));

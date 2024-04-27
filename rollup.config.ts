@@ -1,18 +1,18 @@
-import eslint from '@rollup/plugin-eslint';
-import typescript from '@rollup/plugin-typescript';
-import { createRequire } from 'module';
+import _eslint from '@rollup/plugin-eslint';
+import _typescript from '@rollup/plugin-typescript';
 import { RollupOptions } from 'rollup';
 import dts from 'rollup-plugin-dts';
 import esbuild from 'rollup-plugin-esbuild';
 import outputSize from 'rollup-plugin-output-size';
-import type Pkg from './package.json';
+import pkg from './package.json' with { type: 'json' };
 
-const require = createRequire(import.meta.url);
-const pkg: typeof Pkg = require('./package.json');
-const input = 'src/index.ts';
-// skip sourcemap and umd unless production
+// NOTE: remove once import errors are fixed for their respective packages
+const eslint = _eslint as unknown as typeof _eslint.default;
+const typescript = _typescript as unknown as typeof _typescript.default;
+
+// const PROD = process.env.NODE_ENV !== 'development';
 const WATCH = process.env.ROLLUP_WATCH === 'true';
-const PROD = !WATCH || process.env.NODE_ENV === 'production';
+const input = 'src/index.ts';
 
 function defineConfig(options: (false | RollupOptions)[]) {
   return options.filter((options): options is RollupOptions => !!options);
@@ -22,17 +22,17 @@ export default defineConfig([
   {
     input,
     output: [
-      { file: pkg.main, format: 'cjs', exports: 'named', sourcemap: PROD },
-      { file: pkg.module, format: 'esm', sourcemap: PROD }
+      { file: pkg.main, format: 'cjs', exports: 'named' },
+      { file: pkg.module, format: 'esm' }
     ],
-    plugins: [esbuild(), outputSize()]
+    plugins: [esbuild({ target: 'esnext' }), outputSize()]
   },
   {
     input,
     output: { file: pkg.types, format: 'esm' },
     plugins: [dts(), outputSize()]
   },
-  !PROD && {
+  WATCH && {
     input,
     watch: { skipWrite: true },
     plugins: [eslint(), typescript()]
