@@ -1,13 +1,8 @@
 import { OutputBundle, Plugin } from 'rollup';
 
-/**
- * Rollup no emit plugin options.
- */
-export interface RollupNoEmitOptions {
-  /**
-   * Set to `true` to invalidate plugin and emit files.
-   * @default false
-   */
+/** The plugin options. */
+export interface Options {
+  /** Set to `true` to invalidate plugin and emit files. */
   emit?: boolean;
   /**
    * Return `true` to skip emit for output file.
@@ -18,12 +13,15 @@ export interface RollupNoEmitOptions {
   match?(fileName: string, output: OutputBundle[keyof OutputBundle]): boolean;
 }
 
+/** @deprecated since v1.2.0. Use {@linkcode Options} instead. */
+export type RollupNoEmitOptions = Options;
+
 /**
  * Skip emit for generated bundles.
  * @param options The plugin options.
  * @returns The plugin.
  */
-export function noEmit(options: RollupNoEmitOptions = {}): Plugin {
+export function noEmit(options: Options = {}): Plugin {
   const { emit, match } = options;
   const skipMatch = typeof match !== 'function';
   return {
