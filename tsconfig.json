@@ -1,16 +1,24 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "target": "ESNext",
+    "allowJs": true,
+    "esModuleInterop": true,
     "lib": ["ESNext"],
-    "strict": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noImplicitAny": true,
-    "removeComments": false,
-    "esModuleInterop": true,
+    "noUnusedLocals": true,
     "resolveJsonModule": true,
-    "moduleResolution": "NodeNext"
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext"
   },
-  "include": ["src/**/*", "**/*.spec.ts", "rollup.config.ts"],
-  "exclude": ["node_modules", "/lib", "tmp"]
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    ".mocharc.cjs",
+    "eslint.config.mjs",
+    "rollup.config.ts"
+  ],
+  "exclude": ["node_modules", "/lib", "tmp", "fixtures"]
 }
