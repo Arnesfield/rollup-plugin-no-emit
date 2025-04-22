@@ -1,4 +1,5 @@
-import { add } from './add.js';
+// @ts-check
+import { add } from './add';
 
 export function main() {
   console.log('Hello World!', add(1, 2));

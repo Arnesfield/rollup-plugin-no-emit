@@ -2,14 +2,10 @@ import { expect } from 'chai';
 import path from 'path';
 import { rimraf } from 'rimraf';
 import { RollupOptions, rollup } from 'rollup';
-import { fileURLToPath } from 'url';
-import noEmit from '../src/index.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import noEmit from '../src';
 
 function file(value: string) {
-  return path.relative(process.cwd(), path.resolve(__dirname, value));
+  return path.relative(process.cwd(), path.resolve(import.meta.dirname, value));
 }
 
 const files = {
@@ -23,12 +19,12 @@ async function bundle(options: RollupOptions) {
   const outputOptions = Array.isArray(options.output)
     ? options.output
     : options.output
-    ? [options.output]
-    : [];
+      ? [options.output]
+      : [];
   const outputs = await Promise.all(
-    outputOptions.map(async output => {
-      await build.generate(output);
-      return build.write(output);
+    outputOptions.map(async opts => {
+      await build.generate(opts);
+      return build.write(opts);
     })
   );
   return outputs.flatMap(output => output.output);
