@@ -5,7 +5,7 @@ export interface Options {
   /** Set to `true` to invalidate plugin and emit files. */
   emit?: boolean;
   /**
-   * Return `true` to skip emit for output file.
+   * Returns `true` to skip emit for output file.
    * @param fileName The output bundle file name to match.
    * @param output The Rollup output chunk or asset.
    * @returns Determines if the output file will be skipped or not.
@@ -13,7 +13,7 @@ export interface Options {
   match?(fileName: string, output: OutputBundle[keyof OutputBundle]): boolean;
 }
 
-/** @deprecated since v1.2.0. Use {@linkcode Options} instead. */
+/** @deprecated Since v1.2.0. Use {@linkcode Options} instead. */
 export type RollupNoEmitOptions = Options;
 
 /**
@@ -23,15 +23,13 @@ export type RollupNoEmitOptions = Options;
  */
 export function noEmit(options: Options = {}): Plugin {
   const { emit, match } = options;
-  const skipMatch = typeof match !== 'function';
+  const noSkip = typeof match !== 'function';
   return {
     name: 'no-emit',
     generateBundle(_, bundle) {
-      if (emit) {
-        return;
-      }
+      if (emit) return;
       for (const file in bundle) {
-        if (skipMatch || match(file, bundle[file])) {
+        if (noSkip || match(file, bundle[file])) {
           delete bundle[file];
         }
       }
