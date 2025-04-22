@@ -4,7 +4,10 @@
   "description": "A Rollup plugin that skips emit for generated bundles.",
   "keywords": [
     "rollup-plugin",
-    "no-emit"
+    "no-emit",
+    "exclude",
+    "ignore",
+    "skip"
   ],
   "homepage": "https://github.com/Arnesfield/rollup-plugin-no-emit#readme",
   "bugs": {
@@ -38,9 +41,9 @@
     "build": "npm run all -- npm:bundle npm:check",
     "prebundle": "rimraf lib",
     "bundle": "rollup -c rollup.config.ts --configPlugin \"esbuild={target:'esnext'}\"",
-    "check": "npm run all -- \"npm:lint -- --max-warnings 0\" \"tsc --skipLibCheck\"",
+    "check": "npm run all -- \"npm:lint -- --max-warnings 0\" tsc",
     "format": "npm run lint -- --fix && prettier -cw .",
-    "lint": "eslint . --ext .js,.ts",
+    "lint": "eslint .",
     "start": "npm run watch -- --environment NODE_ENV:development",
     "test": "npm run all -- mocha npm:check",
     "test:watch": "mocha -w",
